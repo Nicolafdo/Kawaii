@@ -67,6 +67,7 @@ export default function Login() {
               onChange={e => setEmail(e.target.value)} 
               required 
               placeholder="Enter your email"
+              suppressHydrationWarning
             />
           </div>
           <div className="form-group" style={{ marginBottom: '1.5rem' }}>
@@ -80,6 +81,7 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)} 
               required 
               placeholder="Enter your password"
+              suppressHydrationWarning
             />
           </div>
           <button type="submit" className="w-full" disabled={loading} style={{ padding: '0.75rem' }}>

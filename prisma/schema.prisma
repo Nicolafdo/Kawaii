@@ -24,7 +24,7 @@ model Training {
   title       String
   area        String
   trainerId   Int
-  trainer     User         @relation("TrainerTrainings", fields: [trainerId], references: [id])
+  trainer     User         @relation("TrainerTrainings", fields: [trainerId], references: [id], onDelete: Cascade)
   schedule    String
   venue       String
   enrollments Enrollment[]
@@ -36,7 +36,7 @@ model Enrollment {
   id         Int      @id @default(autoincrement())
   userId     Int
   trainingId Int
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 
   @@unique([userId, trainingId])
@@ -49,7 +49,7 @@ model Feedback {
   rating        Int
   comment       String
   isFromTrainer Boolean  @default(false)
-  user          User     @relation(fields: [userId], references: [id])
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   training      Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 }
 

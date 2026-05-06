@@ -14,6 +14,7 @@ export async function GET(req) {
         trainer: {
           select: { name: true, email: true }
         },
+        materials: true,
         _count: {
           select: { enrollments: true }
         }

@@ -295,3 +295,17 @@ tbody tr:last-child td {
 .badge.admin { background: #fef08a; color: #854d0e; }
 .badge.trainer { background: #bae6fd; color: #0369a1; }
 .badge.trainee { background: #bbf7d0; color: #15803d; }
+
+.highlight {
+  background-color: var(--primary-light) !important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
