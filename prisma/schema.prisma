@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id             Int          @id @default(autoincrement())
+  name           String
+  email          String       @unique
+  password       String
+  role           String       // ADMIN, TRAINER, TRAINEE
+  trainingsTaught Training[]  @relation("TrainerTrainings")
+  enrollments    Enrollment[]
+  feedback       Feedback[]
+}
+
+model Training {
+  id          Int          @id @default(autoincrement())
+  title       String
+  area        String
+  trainerId   Int
+  trainer     User         @relation("TrainerTrainings", fields: [trainerId], references: [id])
+  schedule    String
+  venue       String
+  enrollments Enrollment[]
+  feedback    Feedback[]
+  materials   Material[]
+}
+
+model Enrollment {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  trainingId Int
+  user       User     @relation(fields: [userId], references: [id])
+  training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, trainingId])
+}
+
+model Feedback {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  trainingId    Int
+  rating        Int
+  comment       String
+  isFromTrainer Boolean  @default(false)
+  user          User     @relation(fields: [userId], references: [id])
+  training      Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+}
+
+model Material {
+  id          Int      @id @default(autoincrement())
+  trainingId  Int
+  filePath    String
+  description String
+  training    Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+}
