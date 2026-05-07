@@ -20,7 +20,10 @@ export default function Home() {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: '32px', height: '32px', color: 'var(--primary-color)' }}>
             <path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" />
           </svg>
-          <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-color)', letterSpacing: '-0.025em' }}>Amex TMS</span>
+          <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.025em' }}>
+            <span style={{ color: 'var(--primary-color)' }}>Amex</span> 
+            <span style={{ color: '#000000', fontSize: '0.9rem', fontWeight: 500, marginLeft: '0.4rem' }}>Training Management System</span>
+          </span>
         </div>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <Link href="/login" style={{ fontWeight: 500, color: 'var(--secondary-text)' }}>
@@ -46,7 +49,7 @@ export default function Home() {
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div className="badge mt-2 mb-4" style={{ backgroundColor: 'var(--primary-light)', color: 'var(--primary-hover)', padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
-              🚀 The next generation of training management
+              The next generation of training management
             </div>
             <h1 style={{ 
               fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
@@ -146,7 +149,14 @@ export default function Home() {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px', color: 'var(--primary-color)' }}>
             <path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" />
           </svg>
-          <span style={{ fontWeight: 600, color: 'var(--text-color)' }}>Amex TMS</span>
+          <span style={{ fontWeight: 600 }}>
+            <span style={{ color: 'var(--primary-color)' }}>Amex</span> 
+            <span style={{ color: '#000000', fontSize: '0.8rem', fontWeight: 500, marginLeft: '0.3rem' }}>Training Management System</span>
+          </span>
+        </div>
+        <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.875rem' }}>
+          <Link href="/privacy-policy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacy Policy</Link>
+          <Link href="/terms" style={{ color: 'inherit', textDecoration: 'none' }}>Terms & Conditions</Link>
         </div>
         <div style={{ fontSize: '0.875rem' }}>
           &copy; {new Date().getFullYear()} Amex Corporation. All rights reserved.

@@ -11,6 +11,7 @@ function AdminDashboardContent() {
   const [stats, setStats] = useState({ totalUsers: 0, totalTrainings: 0, totalEnrollments: 0 });
   const [loading, setLoading] = useState(true);
   const [editingTraining, setEditingTraining] = useState(null);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   // Form states
   const [title, setTitle] = useState('');
@@ -31,6 +32,9 @@ function AdminDashboardContent() {
       if (trainingsRes.ok) setTrainings(await trainingsRes.json());
       if (usersRes.ok) setUsers(await usersRes.json());
       if (statsRes.ok) setStats(await statsRes.json());
+      
+      const feedbackRes = await fetch('/api/feedback');
+      if (feedbackRes.ok) setFeedbacks(await feedbackRes.json());
     } catch (err) {
       console.error(err);
     } finally {
@@ -132,7 +136,7 @@ function AdminDashboardContent() {
             {activeTab === 'overview' ? 'Dashboard Overview' : 'User Management'}
           </h2>
           <p className="text-muted text-sm mt-1">
-            {activeTab === 'overview' ? 'Manage your training programs and view statistics.' : 'Manage system users and their roles.'}
+            {activeTab === 'overview' ? 'Manage your training programs and view statistics.' : activeTab === 'users' ? 'Manage system users and their roles.' : 'View and manage all training feedback.'}
           </p>
         </div>
       </div>
@@ -294,6 +298,65 @@ function AdminDashboardContent() {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'feedback' && (
+        <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+          <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Feedback Management</h2>
+              <p className="text-muted text-sm mt-1">View all feedback submitted by trainers and trainees.</p>
+            </div>
+            <div className="badge admin">{feedbacks.length} Total</div>
+          </div>
+          <div className="table-container" style={{ border: 'none', borderRadius: 0 }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Submitter</th>
+                  <th>Program</th>
+                  <th>Rating</th>
+                  <th>Comments</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {feedbacks.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'var(--secondary-text)' }}>No feedback submitted yet.</td>
+                  </tr>
+                ) : (
+                  feedbacks.map(f => (
+                    <tr key={f.id}>
+                      <td style={{ verticalAlign: 'top' }}>
+                        <div style={{ fontWeight: 600 }}>{f.user?.name}</div>
+                        <div className="text-xs text-muted">{new Date(f.id * 1000).toLocaleDateString()}</div>
+                      </td>
+                      <td style={{ verticalAlign: 'top' }}>{f.training?.title}</td>
+                      <td style={{ verticalAlign: 'top' }}>
+                        <div className="flex align-center gap-1" style={{ color: '#eab308' }}>
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={i < f.rating ? "currentColor" : "none"} stroke="currentColor" strokeWidth={1.5} style={{ width: '16px', height: '16px' }}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </td>
+                      <td style={{ verticalAlign: 'top', maxWidth: '300px' }}>
+                        <div className="text-sm" style={{ whiteSpace: 'pre-wrap' }}>{f.comment}</div>
+                      </td>
+                      <td style={{ verticalAlign: 'top' }}>
+                        <span className={`badge ${f.isFromTrainer ? 'trainer' : 'trainee'}`}>
+                          {f.isFromTrainer ? 'Trainer' : 'Trainee'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

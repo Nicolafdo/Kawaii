@@ -7,6 +7,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('TRAINEE');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,12 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
+    
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     setLoading(true);
     
     try {
@@ -47,7 +54,9 @@ export default function Register() {
             <path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" />
           </svg>
           <h2 className="mt-2" style={{ fontSize: '1.5rem' }}>Create an account</h2>
-          <p className="text-muted text-sm mt-1">Join Amex TMS today</p>
+          <p className="text-muted text-sm mt-1">
+            Join <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Amex</span> <span style={{ color: '#000000' }}>Training Management System</span> today
+          </p>
         </div>
 
         {error && (
@@ -88,6 +97,17 @@ export default function Register() {
               onChange={e => setPassword(e.target.value)} 
               required 
               placeholder="Create a strong password"
+              minLength={6}
+            />
+          </div>
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input 
+              type="password" 
+              value={confirmPassword} 
+              onChange={e => setConfirmPassword(e.target.value)} 
+              required 
+              placeholder="Repeat your password"
               minLength={6}
             />
           </div>

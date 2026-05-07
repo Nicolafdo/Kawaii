@@ -46,7 +46,9 @@ export default function Login() {
             <path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" />
           </svg>
           <h2 className="mt-2" style={{ fontSize: '1.5rem' }}>Welcome back</h2>
-          <p className="text-muted text-sm mt-1">Sign in to your Amex TMS account</p>
+          <p className="text-muted text-sm mt-1">
+            Sign in to your <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>Amex</span> <span style={{ color: '#000000' }}>Training Management System</span> account
+          </p>
         </div>
 
         {error && (
@@ -73,7 +75,7 @@ export default function Login() {
           <div className="form-group" style={{ marginBottom: '1.5rem' }}>
             <div className="flex justify-between">
               <label>Password</label>
-              <Link href="#" className="text-sm" style={{ fontWeight: 500 }}>Forgot password?</Link>
+              <Link href="/forgot-password" title="Forgot password" className="text-sm" style={{ fontWeight: 500 }}>Forgot password?</Link>
             </div>
             <input 
               type="password" 

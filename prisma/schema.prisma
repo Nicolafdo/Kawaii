@@ -14,6 +14,8 @@ model User {
   email          String       @unique
   password       String
   role           String       // ADMIN, TRAINER, TRAINEE
+  resetToken     String?
+  resetTokenExpiry DateTime?
   trainingsTaught Training[]  @relation("TrainerTrainings")
   enrollments    Enrollment[]
   feedback       Feedback[]

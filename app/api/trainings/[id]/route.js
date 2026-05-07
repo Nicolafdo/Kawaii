@@ -22,7 +22,7 @@ export async function DELETE(request, { params }) {
       where: { id }
     });
 
-    // ✅ THIS WAS MISSING
+    // THIS WAS MISSING
     return NextResponse.json({ message: 'Training deleted successfully' }, { status: 200 });
 
   } catch (error) {

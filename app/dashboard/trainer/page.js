@@ -216,49 +216,129 @@ function TrainerDashboardContent() {
             </form>
           </div>
 
-          <div className="card" style={{ flex: '1 1 400px' }}>
-            <div style={{ paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Submit Feedback</h2>
-              <p className="text-muted text-sm mt-1">Provide post-session feedback on trainees.</p>
+          <div className="card" style={{ 
+            flex: '1 1 400px', 
+            border: 'none', 
+            borderLeft: '4px solid var(--primary-color)',
+            boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.1)',
+            borderRadius: '16px',
+            backgroundColor: '#ffffff',
+            padding: 0,
+            overflow: 'hidden'
+          }}>
+            <div style={{ padding: '2rem 2rem 1.5rem 2rem' }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-color)', marginBottom: '0.5rem' }}>Submit Feedback</h2>
+              <p style={{ color: 'var(--secondary-text)', fontSize: '0.95rem' }}>Provide professional assessment and feedback for your trainees.</p>
             </div>
-            <form onSubmit={handleFeedback}>
-              <div className="flex" style={{ gap: '1rem' }}>
-                <div className="form-group" style={{ flex: 2 }}>
-                  <label>Select Training</label>
-                  <select value={feedbackTrainingId} onChange={e => setFeedbackTrainingId(e.target.value)} required>
-                    <option value="">-- Choose a program --</option>
-                    {trainings.map(t => (
-                      <option key={t.id} value={t.id}>{t.title}</option>
-                    ))}
-                  </select>
+            
+            <div style={{ padding: '0 2rem 2rem 2rem' }}>
+              <form onSubmit={handleFeedback} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label style={{ 
+                      fontSize: '0.75rem', 
+                      fontWeight: 600, 
+                      textTransform: 'uppercase', 
+                      letterSpacing: '0.05em', 
+                      color: '#64748b', 
+                      marginBottom: '8px',
+                      display: 'block'
+                    }}>Select Training</label>
+                    <select 
+                      value={feedbackTrainingId} 
+                      onChange={e => setFeedbackTrainingId(e.target.value)} 
+                      required 
+                      style={{ 
+                        borderRadius: '8px', 
+                        border: '1px solid #E2E8F0', 
+                        padding: '0.625rem 0.75rem',
+                        fontSize: '0.95rem'
+                      }}
+                    >
+                      <option value="">-- Choose a program --</option>
+                      {trainings.map(t => (
+                        <option key={t.id} value={t.id}>{t.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label style={{ 
+                      fontSize: '0.75rem', 
+                      fontWeight: 600, 
+                      textTransform: 'uppercase', 
+                      letterSpacing: '0.05em', 
+                      color: '#64748b', 
+                      marginBottom: '8px',
+                      display: 'block'
+                    }}>Rating</label>
+                    <select 
+                      value={rating} 
+                      onChange={e => setRating(e.target.value)} 
+                      required 
+                      style={{ 
+                        borderRadius: '8px', 
+                        border: '1px solid #E2E8F0', 
+                        padding: '0.625rem 0.75rem',
+                        fontSize: '0.95rem'
+                      }}
+                    >
+                      <option value="5">5 Stars - Excellent</option>
+                      <option value="4">4 Stars - Very Good</option>
+                      <option value="3">3 Stars - Good</option>
+                      <option value="2">2 Stars - Fair</option>
+                      <option value="1">1 Star - Poor</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="form-group" style={{ flex: 1 }}>
-                  <label>Rating (1-5)</label>
-                  <select value={rating} onChange={e => setRating(e.target.value)} required>
-                    {[5,4,3,2,1].map(n => <option key={n} value={n}>{n} Stars</option>)}
-                  </select>
+
+                <div className="form-group" style={{ margin: 0 }}>
+                  <label style={{ 
+                    fontSize: '0.75rem', 
+                    fontWeight: 600, 
+                    textTransform: 'uppercase', 
+                    letterSpacing: '0.05em', 
+                    color: '#64748b', 
+                    marginBottom: '8px',
+                    display: 'block'
+                  }}>Trainee Performance Comments</label>
+                  <textarea 
+                    rows="4" 
+                    value={comment} 
+                    onChange={(e) => setComment(e.target.value)} 
+                    placeholder="Share your professional observations about trainee progress and participation..." 
+                    required
+                    style={{ 
+                      resize: 'none', 
+                      borderRadius: '8px', 
+                      border: '1px solid #E2E8F0', 
+                      padding: '0.75rem',
+                      fontSize: '0.95rem',
+                      fontStyle: 'italic',
+                      color: '#1e293b'
+                    }}
+                  ></textarea>
                 </div>
-              </div>
-              <div className="form-group">
-                <label>Comments</label>
-                <textarea 
-                  rows="4" 
-                  value={comment} 
-                  onChange={(e) => setComment(e.target.value)} 
-                  placeholder="Share your observations..." 
-                  required
-                  style={{ resize: 'vertical' }}
-                ></textarea>
-              </div>
-              <div className="mt-2">
-                <button type="submit" className="w-full flex align-center justify-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{width: '20px', height: '20px'}}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+
+                <button type="submit" className="w-full" style={{ 
+                  padding: '0.875rem', 
+                  borderRadius: '10px', 
+                  fontWeight: 700, 
+                  fontSize: '1rem',
+                  backgroundColor: 'var(--primary-color)',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  transition: 'all 0.2s ease'
+                }}>
+                  Submit Performance Review
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: '20px', height: '20px' }}>
+                    <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
                   </svg>
-                  Submit Feedback
                 </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       )}

@@ -30,16 +30,28 @@ function SidebarNav({ user, setSidebarOpen }) {
         Dashboard
       </Link>
       {user.role === 'ADMIN' && (
-        <Link 
-          href={`/dashboard/admin?tab=users`}
-          className={isActive('users') ? 'active' : ''}
-          onClick={() => setSidebarOpen(false)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-          </svg>
-          Users
-        </Link>
+        <>
+          <Link 
+            href={`/dashboard/admin?tab=users`}
+            className={isActive('users') ? 'active' : ''}
+            onClick={() => setSidebarOpen(false)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+            Users
+          </Link>
+          <Link 
+            href={`/dashboard/admin?tab=feedback`}
+            className={isActive('feedback') ? 'active' : ''}
+            onClick={() => setSidebarOpen(false)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3h9m-9 3h4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            Feedback
+          </Link>
+        </>
       )}
     </nav>
   );
@@ -102,7 +114,10 @@ export default function DashboardLayout({ children }) {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style={{ width: '28px', height: '28px', color: 'var(--primary-color)' }}>
             <path fillRule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clipRule="evenodd" />
           </svg>
-          <h2>Amex TMS</h2>
+          <h2 style={{ fontSize: '1.25rem', display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
+            <span style={{ color: 'var(--primary-color)', fontWeight: 700 }}>Amex</span>
+            <span style={{ color: '#000000', fontSize: '0.75rem', fontWeight: 500 }}>Training Management System</span>
+          </h2>
         </div>
         
         <Suspense fallback={<div>Loading Navigation...</div>}>
