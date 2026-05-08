@@ -334,7 +334,7 @@ function AdminDashboardContent() {
                     <tr key={f.id}>
                       <td style={{ verticalAlign: 'top' }}>
                         <div style={{ fontWeight: 600 }}>{f.user?.name}</div>
-                        <div className="text-xs text-muted">{new Date(f.id * 1000).toLocaleDateString()}</div>
+                        <div className="text-xs text-muted">{new Date(f.createdAt).toLocaleDateString()}</div>
                       </td>
                       <td style={{ verticalAlign: 'top' }}>{f.training?.title}</td>
                       <td style={{ verticalAlign: 'top' }}>

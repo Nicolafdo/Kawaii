@@ -1,9 +1,9 @@
 'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function Register() {
+function RegisterForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +12,8 @@ export default function Register() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isAdminSecret = searchParams.get('admin') === 'true';
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -116,7 +118,7 @@ export default function Register() {
             <select value={role} onChange={e => setRole(e.target.value)}>
               <option value="TRAINEE">Trainee</option>
               <option value="TRAINER">Trainer</option>
-              <option value="ADMIN">Admin</option>
+              {isAdminSecret && <option value="ADMIN">Admin</option>}
             </select>
           </div>
           <button type="submit" className="w-full" disabled={loading} style={{ padding: '0.75rem' }}>
@@ -129,5 +131,13 @@ export default function Register() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Register() {
+  return (
+    <Suspense fallback={<div className="flex justify-center align-center" style={{ height: '100vh' }}>Loading...</div>}>
+      <RegisterForm />
+    </Suspense>
   );
 }
