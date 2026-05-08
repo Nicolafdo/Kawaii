@@ -105,15 +105,15 @@ function TraineeDashboardContent() {
       <div className="content-header">
         <div>
           <h2 style={{ fontSize: '1.5rem', margin: 0 }}>
-            {activeTab === 'trainings' ? 'Available Programs' : 'Trainee Dashboard'}
+            {activeTab === 'enrolled' ? 'My Enrolled Programs' : 'Trainee Dashboard'}
           </h2>
           <p className="text-muted text-sm mt-1">
-            {activeTab === 'trainings' ? 'Browse and enroll in available training programs.' : 'Browse available trainings, manage your enrollments, and leave feedback.'}
+            {activeTab === 'enrolled' ? 'Manage your enrolled programs and access learning materials.' : 'Browse available trainings, manage your enrollments, and leave feedback.'}
           </p>
         </div>
       </div>
 
-      {(activeTab === 'overview' || activeTab === 'trainings') && (
+      {(activeTab === 'overview' || activeTab === 'enrolled') && (
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon" style={{ backgroundColor: 'var(--success-bg)', color: 'var(--success)' }}>
@@ -140,18 +140,22 @@ function TraineeDashboardContent() {
         </div>
       )}
 
-      {(activeTab === 'overview' || activeTab === 'trainings') && (
+      {(activeTab === 'overview' || activeTab === 'enrolled') && (
         <div className="card" style={{ padding: 0, overflow: 'visible', marginTop: '2rem' }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <h2 style={{ fontSize: '1.25rem', margin: 0 }}>Course Catalog</h2>
-              <p className="text-muted text-sm mt-1">Explore programs and access learning resources.</p>
+              <h2 style={{ fontSize: '1.25rem', margin: 0 }}>
+                {activeTab === 'enrolled' ? 'My Enrolled Programs' : 'Course Catalog'}
+              </h2>
+              <p className="text-muted text-sm mt-1">
+                {activeTab === 'enrolled' ? 'Access materials for your enrolled courses.' : 'Explore programs and access learning resources.'}
+              </p>
             </div>
           </div>
           
-          {trainings.length === 0 ? (
+          {(activeTab === 'enrolled' ? enrolledTrainingsList : trainings.filter(t => !enrollments.includes(t.id))).length === 0 ? (
             <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--secondary-text)' }}>
-              No trainings available at the moment.
+              {activeTab === 'enrolled' ? "You haven't enrolled in any programs yet." : 'No new trainings available at the moment.'}
             </div>
           ) : (
             <div className="table-container" style={{ border: 'none', borderRadius: 0, overflow: 'visible' }}>
@@ -165,7 +169,7 @@ function TraineeDashboardContent() {
                   </tr>
                 </thead>
                 <tbody>
-                  {trainings.map(t => {
+                  {(activeTab === 'enrolled' ? enrolledTrainingsList : trainings.filter(t => !enrollments.includes(t.id))).map(t => {
                     const isEnrolled = enrollments.includes(t.id);
                     const materialCount = t.materials?.length || 0;
                     
