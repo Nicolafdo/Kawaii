@@ -141,7 +141,7 @@ function TraineeDashboardContent() {
       )}
 
       {(activeTab === 'overview' || activeTab === 'enrolled') && (
-        <div className="card" style={{ padding: 0, overflow: 'visible', marginTop: '2rem' }}>
+        <div className="card" style={{ padding: 0, marginTop: '2rem' }}>
           <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <h2 style={{ fontSize: '1.25rem', margin: 0 }}>
@@ -158,8 +158,8 @@ function TraineeDashboardContent() {
               {activeTab === 'enrolled' ? "You haven't enrolled in any programs yet." : 'No new trainings available at the moment.'}
             </div>
           ) : (
-            <div className="table-container" style={{ border: 'none', borderRadius: 0, overflow: 'visible' }}>
-              <table style={{ overflow: 'visible' }}>
+            <div className="table-container" style={{ border: 'none', borderRadius: 0, overflowX: 'auto' }}>
+              <table>
                 <thead>
                   <tr>
                     <th>Program Info</th>
